@@ -5,6 +5,14 @@ import (
 	"math"
 )
 
+func getMin(a int, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
+
+
 // We can add or sub any 2^x
 
 func minOperations(n int) int {
@@ -13,8 +21,8 @@ func minOperations(n int) int {
 	// so n is between k and k+1
 
 	lowerband := 1 << uint(k)
-	upperband := 1 << uint(k+1)
-	mindiff := int(math.Min(float64(upperband - n), float64(n - lowerband)))
+	upperband := lowerband * 2
+	mindiff := getMin(upperband - n, n - lowerband)
 
 	if n==0 {
 		return 0
