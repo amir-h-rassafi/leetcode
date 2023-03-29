@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"sort"
 )
 
 type Pair struct {
@@ -45,18 +44,6 @@ func cal(i int, j int, cols []int, m int) int {
 	return sum
 }
 
-func getSorted(arr []int) []Pair {
-	var cols []Pair
-
-	for index, element := range arr {
-		cols = append(cols, Pair{index, element})
-	}
-
-	sort.Slice(cols, func(i, j int) bool { return cols[i].v > cols[j].v })
-
-	return cols
-}
-
 func getMax(arr []int) Pair {
 
 	if len(arr) == 0 {
@@ -95,40 +82,6 @@ func trap(height []int) int {
 	right_rain := cal(c.mid.k, c.right.k, height, min(c.right.v, c.mid.v))
 
 	return left_rain + right_rain + trap2(height[:c.left.k+1]) + trap2(height[c.right.k:])
-}
-
-func trap2(height []int) int {
-
-	if len(height) <= 2 {
-		return 0
-	}
-
-	sorted := getSorted(height)
-
-	mid := sorted[0]
-	l := false
-	r := false
-	first_left := Pair{0, height[0]}
-	first_right := Pair{len(height)-1, height[len(height) - 1]}
-	for _, p := range sorted {
-		if p.k > mid.k && r==false {
-			first_right = p
-			r = true
-		}
-
-		if p.k < mid.k && l==false {
-			first_left = p
-			l = true
-		}
-
-		if r && l {
-			break
-		}
-	}
-
-	left_rain := cal(first_left.k, mid.k, height, min(first_left.v, mid.v))
-	right_rain := cal(mid.k, first_right.k, height, min(first_right.v, mid.v))
-	return left_rain + right_rain + trap(height[:first_left.k + 1]) + + trap(height[first_right.k:])
 }
 
 
