@@ -81,7 +81,7 @@ func trap(height []int) int {
 	left_rain := cal(c.left.k, c.mid.k, height, min(c.left.v, c.mid.v))
 	right_rain := cal(c.mid.k, c.right.k, height, min(c.right.v, c.mid.v))
 
-	return left_rain + right_rain + trap2(height[:c.left.k+1]) + trap2(height[c.right.k:])
+	return left_rain + right_rain + trap(height[:c.left.k+1]) + trap(height[c.right.k:])
 }
 
 
