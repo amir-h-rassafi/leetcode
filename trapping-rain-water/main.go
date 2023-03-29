@@ -89,6 +89,5 @@ func main() {
 	fmt.Println(trap([]int{0,1,0,2,1,0,1,3,2,1,2,1}))
 	fmt.Println(trap([]int{4,2,0,3,2,5}))
 	fmt.Println(trap([]int{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15}))
-	fmt.Println(trap([]int{15, 14, 13, 12, 11, 10, 9, 8, 7}))
-
+	fmt.Println(trap([]int{15,14,13,12,11,10,9,8,7}))
 }
