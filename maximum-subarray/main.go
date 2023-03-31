@@ -18,7 +18,7 @@ func getMaxArr(arr *[]int, size int) int {
 	for i:=0; i<size; i++ {
 		e = (*arr)[i]
 		if e > max {
-			max = i
+			max = e
 		}
 	}
 
@@ -36,4 +36,6 @@ func maxSubArray(nums []int) int {
 
 func main() {
 	fmt.Println(maxSubArray([]int{-2,1,-3,4,-1,2,1,-5,4}))
+	fmt.Println(maxSubArray([]int{1}))
+
 }
