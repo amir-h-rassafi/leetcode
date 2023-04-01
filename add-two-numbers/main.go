@@ -2,6 +2,8 @@ package main
 
 import "fmt"
 
+//todo handle it with string manipulation
+
 type ListNode struct {
 	Val int
 	Next *ListNode
