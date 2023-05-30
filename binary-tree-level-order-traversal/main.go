@@ -7,6 +7,7 @@ type TreeNode struct {
 	Left  *TreeNode
 	Right *TreeNode
 }
+
 type TreeNodeLevel struct {
 	node  *TreeNode
 	level int
@@ -21,7 +22,7 @@ func levelOrder(root *TreeNode) [][]int {
 }
 
 func BFS(root *TreeNodeLevel, ans *[][]int) {
-	queue := make(chan *TreeNodeLevel, 100)
+	queue := make(chan *TreeNodeLevel, 10000)
 	queue <- root
 	var nodePointer *TreeNodeLevel
 	var left, right *TreeNode
