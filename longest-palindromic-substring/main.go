@@ -33,21 +33,36 @@ func isPalindrom(s string) bool {
 	return true
 }
 
-func longestPalindrome(s string) string {
+func findLongestPalindrom(s string, cache *map[string]bool) string {
 
-	if isPalindrom(s) {
+	if _, ok := (*cache)[s]; ok {
 		return s
 	}
 
-	left := longestPalindrome(s[1:])
-	right := longestPalindrome(s[0 : len(s)-1])
+	if isPalindrom(s) {
+		(*cache)[s] = true
+		return s
+	}
+
+	left := findLongestPalindrom(s[1:], cache)
+
+	//left is priority
+	if len(left) == len(s)-1 {
+		return left
+	}
+
+	right := findLongestPalindrom(s[0:len(s)-1], cache)
 
 	if len(left) > len(right) {
 		return left
 	} else {
 		return right
 	}
+}
 
+func longestPalindrome(s string) string {
+	cache := make(map[string]bool)
+	return findLongestPalindrom(s, &cache)
 }
 
 func main() {
