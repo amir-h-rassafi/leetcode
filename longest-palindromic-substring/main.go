@@ -33,7 +33,7 @@ func isPalindrom(s string) bool {
 	return true
 }
 
-func findLongestPalindrom(s string, cache *map[string]bool) string {
+func findLongestPalindromR(s string, cache *map[string]bool) string {
 
 	if _, ok := (*cache)[s]; ok {
 		return s
@@ -44,14 +44,9 @@ func findLongestPalindrom(s string, cache *map[string]bool) string {
 		return s
 	}
 
-	left := findLongestPalindrom(s[1:], cache)
+	left := findLongestPalindromR(s[1:], cache)
 
-	//left is priority
-	if len(left) == len(s)-1 {
-		return left
-	}
-
-	right := findLongestPalindrom(s[0:len(s)-1], cache)
+	right := findLongestPalindromR(s[0:len(s)-1], cache)
 
 	if len(left) > len(right) {
 		return left
@@ -60,11 +55,24 @@ func findLongestPalindrom(s string, cache *map[string]bool) string {
 	}
 }
 
+// sliding window O(n^3)
+func findLongestPalindrom(s string) string {
+
+	for windowSize := len(s); windowSize > 0; windowSize-- {
+		for startPtr := 0; startPtr <= len(s)-windowSize; startPtr++ {
+			if isPalindrom(s[startPtr : startPtr+windowSize]) {
+				return s[startPtr : startPtr+windowSize]
+			}
+		}
+	}
+
+	return ""
+}
+
 func longestPalindrome(s string) string {
-	cache := make(map[string]bool)
-	return findLongestPalindrom(s, &cache)
+	return findLongestPalindrom(s)
 }
 
 func main() {
-	fmt.Println(longestPalindrome("babaddtattarrattatddetartrateedredividerb"))
+	fmt.Println(longestPalindrome("abaab"))
 }
