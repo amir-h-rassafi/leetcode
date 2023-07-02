@@ -39,7 +39,6 @@ func reverse(x int) int {
 
 	revNumber = append(zeroSpace, revNumber...)
 
-	fmt.Println(revNumber, threshold)
 	for i := 0; i < 10; i++ {
 		if revNumber[i] < (*threshold)[i] {
 			break
