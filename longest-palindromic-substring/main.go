@@ -33,14 +33,14 @@ func isPalindrom(s string) bool {
 	return true
 }
 
-func findLongestPalindromR(s string, cache *map[string]bool) string {
+func findLongestPalindromR(s string, cache *map[string]string) string {
 
 	if _, ok := (*cache)[s]; ok {
-		return s
+		return (*cache)[s]
 	}
 
 	if isPalindrom(s) {
-		(*cache)[s] = true
+		(*cache)[s] = s
 		return s
 	}
 
@@ -48,9 +48,15 @@ func findLongestPalindromR(s string, cache *map[string]bool) string {
 
 	right := findLongestPalindromR(s[0:len(s)-1], cache)
 
+	// (*cache)[s[1:]] = left
+
+	// (*cache)[s[0:len(s)-1]] = right
+
 	if len(left) > len(right) {
+		(*cache)[s] = left
 		return left
 	} else {
+		(*cache)[s] = right
 		return right
 	}
 }
@@ -70,9 +76,10 @@ func findLongestPalindrom(s string) string {
 }
 
 func longestPalindrome(s string) string {
-	return findLongestPalindrom(s)
+	cache := make(map[string]string)
+	return findLongestPalindromR(s, &cache)
 }
 
 func main() {
-	fmt.Println(longestPalindrome("abaab"))
+	fmt.Println(longestPalindrome("fdal;kfjasl;kjf;aljksdfa;ksjfj;dsajfdaaaa"))
 }
